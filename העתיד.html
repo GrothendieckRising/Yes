@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>האם אירוע פוליטי אקראי</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: 'Heebo', sans-serif;
+            text-align: center;
+            transition: background-color 0.5s;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .title {
+            font-size: 24px;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            line-height: 1.4;
+            transition: opacity 0.5s;
+        }
+        
+        .button-container {
+            text-align: center;
+            transition: opacity 0.5s;
+            margin-bottom: 20px;
+        }
+        
+        #yesNoButton {
+            padding: 20px 40px;
+            font-size: 28px;
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        #yesNoButton:hover {
+            background-color: #ff0000;
+            transform: scale(1.05);
+        }
+        
+        #yesNoButton:active {
+            transform: translateY(2px) scale(0.98);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #bigYes {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 120px;
+            font-weight: bold;
+            color: #ff4444;
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        body.clicked {
+            background-color: #fff;
+        }
+
+        body.clicked .title,
+        body.clicked .button-container {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        body.clicked #bigYes {
+            opacity: 1;
+        }
+
+        .share-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        body.clicked .share-container {
+            opacity: 1;
+        }
+
+        .share-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Heebo', sans-serif;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .share-button:hover {
+            background-color: #45a049;
+        }
+
+        .copy-message {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .copy-message.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 20px;
+            }
+            
+            #yesNoButton {
+                padding: 15px 30px;
+                font-size: 24px;
+            }
+            
+            #bigYes {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        האם אירוע פוליטי אקראי שקראתי עליו אך ורק כדי לזיין לעצמי את היום הולך לזיין לי את היום?
+    </div>
+    <div class="button-container">
+        <button id="yesNoButton">לחץ כאן</button>
+    </div>
+    <div id="bigYes">כן.</div>
+    <div class="share-container">
+        <button class="share-button" onclick="copyToClipboard()">העתק</button>
+        <button class="share-button" onclick="shareOnWhatsApp()">שתף בוואטסאפ</button>
+    </div>
+    <div class="copy-message" id="copyMessage">הועתק!</div>
+
+    <script>
+        const button = document.getElementById('yesNoButton');
+        const body = document.body;
+        const copyMessage = document.getElementById('copyMessage');
+        
+        button.addEventListener('click', () => {
+            body.classList.add('clicked');
+        });
+
+        function copyToClipboard() {
+            const text = 'כן.';
+            navigator.clipboard.writeText(text).then(() => {
+                showCopyMessage();
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const text = 'כן.';
+            const url = `whatsapp://send?text=${encodeURIComponent(text)}`;
+            window.location.href = url;
+        }
+
+        function showCopyMessage() {
+            copyMessage.classList.add('show');
+            setTimeout(() => {
+                copyMessage.classList.remove('show');
+            }, 2000);
+        }
+    </script>
+</body>
+</html> 
