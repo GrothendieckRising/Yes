@@ -158,7 +158,6 @@
     <div id="bigYes">כן.</div>
     <div class="share-container">
         <button class="share-button" onclick="copyToClipboard()">העתק</button>
-        <button class="share-button" onclick="shareOnWhatsApp()">שתף בוואטסאפ</button>
     </div>
     <div class="copy-message" id="copyMessage">הועתק!</div>
 
@@ -176,12 +175,6 @@
             navigator.clipboard.writeText(text).then(() => {
                 showCopyMessage();
             });
-        }
-
-        function shareOnWhatsApp() {
-            const text = 'כן.';
-            const url = `whatsapp://send?text=${encodeURIComponent(text)}`;
-            window.location.href = url;
         }
 
         function showCopyMessage() {
